@@ -23,7 +23,7 @@ public class calendar3 {
 		}
 		else {
 			
-			System.out.printf("%d월은 %d일까지 있습니다.\n",i,cal.MAX_DAYS[i-1]);
+			System.out.printf("%d월은 %d일까지 있습니다.\n",i,cal.arr(i));
 			scanner.close();
 		}
 	}
