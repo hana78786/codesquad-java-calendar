@@ -63,4 +63,4 @@ for(int a=1;a<=md;a++) {
 	if(a%7==1) {
 		System.out.println();}}
 }System.out.println();}
-public static void main(String[]args) {}}
+public static void main(String[]args) {}} 

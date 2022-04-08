@@ -34,5 +34,5 @@ public void runPrompt() {
 public static void main(String[]args) {
 	Prompt p=new Prompt();
 	p.runPrompt();
-}
+} 
 }
