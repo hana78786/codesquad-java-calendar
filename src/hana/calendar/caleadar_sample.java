@@ -1,9 +1,39 @@
 package hana.calendar;
 
+import java.util.HashMap;
+
+import javax.swing.text.html.CSS;
+
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+
+
+
 public class caleadar_sample {
 	private final static int[] arr = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	private final static int[] larr = { 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
+	private static HashMap <Date,String> planmap;
+	public caleadar_sample() {
+		planmap=new HashMap<Date,String>();
+	}
+	
+	
+	public void registerPlan (String strdate, String plan)throws ParseException {
+		Date date=new SimpleDateFormat("yyyy-MM-dd").parse(strdate);
+
+		planmap.put(date,plan);
+	}
+	
+	public String searchPlan(String strdate) throws ParseException {
+		Date date=new SimpleDateFormat("yyyy-MM-dd").parse(strdate);
+		String plan=planmap.get(date);
+		return plan;
+	}
+	
+	
 	public boolean isLeepYear(int year) {
 		if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
 			return true;
@@ -76,6 +106,10 @@ public class caleadar_sample {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
+	caleadar_sample cs = new caleadar_sample();
+	cs.registerPlan("2017-06-23", "식사");
+		
+	System.out.println(cs.searchPlan("2017-06-23").equals("식사"));
 	}
 }

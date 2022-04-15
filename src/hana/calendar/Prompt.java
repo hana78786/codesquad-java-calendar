@@ -1,8 +1,11 @@
 package hana.calendar;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+import org.w3c.dom.Text;
 
 public class Prompt {
 	
@@ -15,7 +18,7 @@ public class Prompt {
 		System.out.println("+---------------+");
 //		System.out.println("명령 (1,2,3,h,q");
 	}
-	public void runPrompt() {
+	public void runPrompt() throws ParseException {
 		printmenu();
 		Scanner scanner = new Scanner(System.in);
 		
@@ -24,8 +27,8 @@ while (true) {
 	System.out.println();
 	System.out.println("명령 (1,2,3,h,q)");
 		String cmd=scanner.next();
-		if(cmd.equals("1")) cmdRegister();
-		else if (cmd.equals("2"))  cmdSerch();
+		if(cmd.equals("1")) cmdRegister(scanner,cs);
+		else if (cmd.equals("2"))  cmdSerch(scanner, cs);
 		else if (cmd.equals("3")) cmdCal1(scanner, cs);
 		else if (cmd.equals("h")) printmenu();
 		else if (cmd.equals("q")) break;
@@ -73,15 +76,37 @@ while (true) {
 		// TODO Auto-generated method stub
 		
 	}
-	private void cmdSerch() {
-		// TODO Auto-generated method stub
+	private void cmdSerch(Scanner s,caleadar_sample cs) {
+		System.out.println("[일정검색]");
+		System.out.println("날짜를 입력하주세요(yyyy-MM-dd)");
+		String date=s.next();
+		String plan="";
+		try {
+			plan=cs.searchPlan(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			System.err.println("오류가 발생했습니다");
+		}
 		
 	}
-	private void cmdRegister() {
-		// TODO Auto-generated method stub
+	private void cmdRegister(Scanner s,caleadar_sample cs) throws ParseException {
+		System.out.println("[새 일정등록]");
+		System.out.println("날짜를 입력하주세요(yyyy-MM-dd)");
+		String date=s.next();
+		String text="";
+		System.out.println("일정을 입력해주세요 (문장끝에 ;를 입력하세요)");
+		
+		while(true) {
+			String word=s.next();
+			text += word+"  ";
+			if(word.endsWith(";")) {
+				break;
+			}
+		}
+		cs.registerPlan(date, text);
 		
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		Prompt p = new Prompt();
 		p.runPrompt();
 	}
