@@ -22,20 +22,23 @@ public class Prompt {
 		printmenu();
 		Scanner scanner = new Scanner(System.in);
 		
+		
 		caleadar_sample cs = new caleadar_sample();
-while (true) {
+		boolean isLoop=true;
+		while(isLoop) {
 	System.out.println();
 	System.out.println("명령 (1,2,3,h,q)");
 		String cmd=scanner.next();
-		if(cmd.equals("1")) cmdRegister(scanner,cs);
-		else if (cmd.equals("2"))  cmdSerch(scanner, cs);
-		else if (cmd.equals("3")) cmdCal1(scanner, cs);
-		else if (cmd.equals("h")) printmenu();
-		else if (cmd.equals("q")) break;
+		switch(cmd){	
+		case "1": plan_test.cmdRegister(scanner,cs); break;
+		case "2": plan_test.cmdSerch(scanner, cs);break;
+		case "3": cmdCal1(scanner, cs);break;
+		case "h": printmenu();break;
+		case "q": System.out.println("thank you"); isLoop=false; break;
+		default : System.out.println("잘못된 입력입니다");break;
+	}}
 	}
-	System.out.println("thank you");
-	scanner.close();
-	}
+	
 	
 		private void cmdCal1(Scanner s, caleadar_sample cs) {
 			
@@ -76,31 +79,31 @@ while (true) {
 		// TODO Auto-generated method stub
 		
 	}
-	private void cmdSerch(Scanner s,caleadar_sample cs) {
-		System.out.println("[일정검색]");
-		System.out.println("날짜를 입력하주세요(yyyy-MM-dd)");
-		String date=s.next();
-		String plan="";
-		try {
-			plan=cs.searchPlan(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-			System.err.println("오류가 발생했습니다");
-		}
-		System.out.println(plan);
-	}
-	private void cmdRegister(Scanner s,caleadar_sample cs) throws ParseException {
-		System.out.println("[새 일정등록]");
-		System.out.println("날짜를 입력하주세요(yyyy-MM-dd)");
-		String date=s.next();
-		String text="";
-		 s.nextLine(); //ignore one newline
-	        System.out.println("일정을 입력해 주세요.");
-	        text = s.nextLine();
-	       
-		cs.registerPlan(date, text);
-		
-	}
+//	private void cmdSerch(Scanner s,caleadar_sample cs) {
+//		System.out.println("[일정검색]");
+//		System.out.println("날짜를 입력하주세요(yyyy-MM-dd)");
+//		String date=s.next();
+//		String plan="";
+//		try {
+//			plan=cs.searchPlan(date);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//			System.err.println("오류가 발생했습니다");
+//		}
+//		System.out.println(plan);
+//	}
+//	private void cmdRegister(Scanner s,caleadar_sample cs) throws ParseException {
+//		System.out.println("[새 일정등록]");
+//		System.out.println("날짜를 입력하주세요(yyyy-MM-dd)");
+//		String date=s.next();
+//		String text="";
+//		 s.nextLine(); //ignore one newline
+//	        System.out.println("일정을 입력해 주세요.");
+//	        text = s.nextLine();
+//	       
+//		cs.registerPlan(date, text);
+//		
+//	}
 	public static void main(String[] args) throws ParseException {
 		Prompt p = new Prompt();
 		p.runPrompt();
