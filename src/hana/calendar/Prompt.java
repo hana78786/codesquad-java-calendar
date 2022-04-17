@@ -87,22 +87,17 @@ while (true) {
 			e.printStackTrace();
 			System.err.println("오류가 발생했습니다");
 		}
-		
+		System.out.println(plan);
 	}
 	private void cmdRegister(Scanner s,caleadar_sample cs) throws ParseException {
 		System.out.println("[새 일정등록]");
 		System.out.println("날짜를 입력하주세요(yyyy-MM-dd)");
 		String date=s.next();
 		String text="";
-		System.out.println("일정을 입력해주세요 (문장끝에 ;를 입력하세요)");
-		
-		while(true) {
-			String word=s.next();
-			text += word+"  ";
-			if(word.endsWith(";")) {
-				break;
-			}
-		}
+		 s.nextLine(); //ignore one newline
+	        System.out.println("일정을 입력해 주세요.");
+	        text = s.nextLine();
+	       
 		cs.registerPlan(date, text);
 		
 	}
