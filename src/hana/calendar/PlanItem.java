@@ -35,6 +35,8 @@ public void addPeople(String name) {
 }
 
 public String saveString() {
-return planDate.toString()+","+detail+"\n";
+SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
+String sdate=formatter.format(planDate);
+return sdate+"," + "\"" + detail+ "\"" +"\n";
 
 }}
