@@ -1,10 +1,14 @@
 package hana.calendar;
+import java.text.SimpleDateFormat;
 
 import java.util.HashMap;
 
 import javax.swing.text.html.CSS;
 
 import java.util.Date;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -14,23 +18,34 @@ import java.text.SimpleDateFormat;
 public class caleadar_sample {
 	private final static int[] arr = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	private final static int[] larr = { 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
-	private static HashMap <Date,String> planmap;
+	private final static String Save_File="cal.dat";
+	
+	private HashMap <Date,PlanItem> planmap;
 	public caleadar_sample() {
-		planmap=new HashMap<Date,String>();
+		planmap=new HashMap<Date,PlanItem>();
 	}
 	
 	
-	public void registerPlan (String strdate, String plan)throws ParseException {
-		Date date=new SimpleDateFormat("yyyy-MM-dd").parse(strdate);
-
-		planmap.put(date,plan);
+	public void registerPlan (String strdate, String plan) {
+		
+		PlanItem p=new PlanItem(strdate,plan);
+		planmap.put(p.getdate(),p);
+		
+		File f=new File(Save_File);
+		String item=p.saveString();
+		try {
+			FileWriter fw=new FileWriter(f, true);
+			fw.write(strdate);
+			fw.close();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
-	public String searchPlan(String strdate) throws ParseException {
-		Date date=new SimpleDateFormat("yyyy-MM-dd").parse(strdate);
-		String plan=planmap.get(date);
-		return plan;
+	public PlanItem searchPlan(String strdate) {
+		Date date=PlanItem.getDatefromString(strdate);
+		return planmap.get(date);
 	}
 	
 	
