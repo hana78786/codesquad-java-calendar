@@ -37,21 +37,17 @@ public class cal_pro_2 {
 			case "q": System.out.println("종료합니다");loop=false;
 			}}}
 	
-	private void cal_2(Scanner sc,cla_pro_1 cp1) {
+	private void cal_2(Scanner sc,cla_pro_1 cp1) throws ParseException {
 		System.out.println("[일정검색]");
 		System.out.println("날짜를 입력하세요 yyyy-MM-dd");
 		System.out.print(">");
-		String date=sc.next();
-		String plan="";
-		try {
-			plan=cp1.searchPlan(date);
-		} catch (ParseException e) {
-			e.printStackTrace();System.err.println("오류");
-		}
-		
-		System.out.printf(plan);
-		System.out.println();
+		String strdate=sc.next();
+		String plan=cp1.searchPlan(strdate);
+		if(plan==null) {System.out.println("일정이 없습니다");
+			}
+		else {System.out.println(plan);}
 
+		cp1.searchPlan(strdate);
 	
 
 		
